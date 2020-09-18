@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- head -->
+<head>
+    <meta charset="utf-8">
+    <title>Franklab - Prototipo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="./stylesheets/codemirror.css">
+    <link rel="stylesheet" href="./stylesheets/material.css">
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/main.css" />
+</head>
+
+<!-- body -->
+<body class="is-preload">
+
+<!-- header -->
+<header id="header">
+    <a class="logo" href="ind2.html">FrankLab</a>
+    <nav>
+        <a href="#menu">Menu</a>
+    </nav>
+</header>
+
+<!-- Nav -->
+<nav id="menu">
+    <ul class="links">
+        <li><a href="ind2.html">Home</a></li>
+    </ul>
+</nav>
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>Prototipo para la Programación Textual</h1>
+</div>
+
+<!-- Scripts -->
+<script src="./javascripts/codemirror.js"></script>
+<script src="./javascripts/modes/python.js"></script>
+
+<script src="./javascripts/jquery.min.js"></script> <!-- agregado por plantilla -->
+<script src="./javascripts/browser.min.js"></script>
+<script src="./javascripts/breakpoints.min.js"></script>
+<script src="./javascripts/util.js"></script>
+<script src="./javascripts/main-template.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+</body>
+
+
+
+<div class="row">
+    <div class="column" style="max-width: 540px; margin: 20px">
+        <p><b> Escribí tu código aquí:  </b></p>
+        <form method="post" action="/procesar" target="_self">
+            <textarea id="editor" name="codigo"></textarea>
+            <button id="runBtn" type="submit" style="margin-top: 10px">Ejecutar en el robot</button>
+            <button id="simuBtn" type="button" style="margin-top: 10px">Ejecutar en el simulador</button>
+        </form>
+
+
+        <form method="post" action="/"> <b> Área de comunicación (E/S)</b>
+            <input type="text" id="textopost" name="valorIO" value=""><br />
+            <input type="submit" value="enviar"/>
+        </form>
+    </div>
+
+    <div class="column">
+           <img class="stream" src="./images/img-default.jpg">
+         <!-- <img id=imgstream src="http://10.0.20.220:8080/?action=stream" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';"> -->
+
+         <br /> <br /> <br /> <br /> <br /> <br />
+
+             <textarea id="textresponse" name="textresponse" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+
+         </div>
+
+     </div>
+     <br>
+
+     <script>
+         var runBtn = document.getElementById('runBtn');
+
+         runBtn.addEventListener('click', function(){
+             document.getElementById('imgstream').src = "http://10.0.20.220:8080/?action=stream&?random="+new Date().getTime();
+         });
+
+         var simuBtn = document.getElementById('simuBtn');
+         simuBtn.addEventListener('click', function () {
+             //myCodeMirror.save();
+             //alert('Funcionalidad en construcción');
+             //console.log("contenido ide:")
+             //console.log(myCodeMirror.getValue()); //imprime modificado
+             //myCodeMirror.setValue(myCodeMirror.getValue());
+           //  console.log("texto inicializacion ide:") /  console.log(myTextArea.textContent); //imprime inicializacion
+
+             // ********** Prueba de respuestas del server ***********
+             $('#textresponse').val('aca debo mostrar respuestas del server');
+         });
+
+         var myTextArea = document.getElementById('editor');
+
+         //se usaria solo para inicializar el editor con algún texto
+         var codeToExecute = "a = 2 + 3\n" +
+             "print a\n" +
+             "print a * 4\n" +
+             "print \"ingrese un numero del 1 al 9\"\n" +
+             "# num = input()";
+         myTextArea.textContent = codeToExecute;
+         //propiedad estática!! ...
+         var myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+             mode: "python",
+             theme: "material",
+             lineNumbers: true
+         });
+     </script>
+     </body>
+     </html>
