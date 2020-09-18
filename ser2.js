@@ -55,13 +55,12 @@ app.post('/procesar', function (req, res) { //queda pending despues de ejecutar 
         sckt.on('valorIO', (valorIngresado) =>{
             pyshell.send(valorIngresado); /** envio al script de python (lo toma como entrada estandar) el valor
              ingresado por el usuario en la ventana de IO**/
-            // pyshell.send(valorIngresado.toString());
         });
     });
 
     pyshell.on('error', function (err) {
         console.log(' error: ', err);
-        io.emit('chat message', recortarError(err));
+        io.emit('chat message', err.toString());
     });
 
   /**  pyshell.on('close', function (err) {
@@ -94,11 +93,16 @@ http.listen(3000, function () {
     console.log('Escuchando en el puerto 3000');
 });
 
-function recortarError(error){
-    let i;
-    let exit = false;
-    error = error.toString();
-    let newError = error.split('(')[0]; //no encuentra y devuelve, MEJORAR ESTO
 
-    return newError;
-};
+// Implementar manejo de errores
+/**
+function recortarError(error){
+    error = error.toString();
+    //let newError = error.split('(')[0]; //no encuentra y devuelve, MEJORAR ESTO
+
+   // let strSub = error.slice(0, error.indexOf('PythonShell.'));
+   // let regex = new RegExp('\\b' + 'PythonShell.parseError' + '\\b');
+   // let indice = error.search(regex);
+
+    return error;
+}; **/
