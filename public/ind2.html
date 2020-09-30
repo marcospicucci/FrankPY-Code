@@ -3,7 +3,7 @@
 <!-- head -->
 <head>
     <meta charset="utf-8">
-    <title>Franklab - Prototipo</title>
+    <title>Prototipo-Plataforma de Programación</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -18,7 +18,7 @@
 
 <!-- header -->
 <header id="header">
-    <a class="logo" href="ind2.html">FrankLab</a>
+    <a class="logo" href="ind2.html">Entorno para la programación de robots Frankestito-Compatibles</a>
     <nav>
         <a href="#menu">Menu</a>
     </nav>
@@ -56,48 +56,46 @@
         <p><b> Escribí tu código aquí:  </b></p>
         <form method="post" action="/procesar" target="_self">
             <textarea id="editor" name="codigo"></textarea>
-            <button id="runBtn" type="submit" style="margin-top: 10px">Ejecutar en el robot</button>
-            <button id="simuBtn" type="button" style="margin-top: 10px">Ejecutar en el simulador</button>
+            <button id="runBtn" type="submit" style="margin-top: 10px; background-color: #ffebdb; border:1px solid black;">Ejecutar en el robot</button>
+            <button id="ioBtn" type="button" style="margin-top: 10px; background-color: #e2fade;border:1px solid black;">Ver ventana Entrada/Salida</button>
+            <button id="simuBtn" type="button" style="margin-top: 10px; background-color: #ffebdb;border:1px solid black;">Ejecutar en el simulador</button>
         </form>
 
-
-        <form method="post" action="/"> <b> Área de comunicación (E/S)</b>
+       <!-- <form method="post" action="/"> <b> Área de comunicación (E/S)</b>
             <input type="text" id="textopost" name="valorIO" value=""><br />
             <input type="submit" value="enviar"/>
         </form>
+       -->
     </div>
 
     <div class="column">
-           <img class="stream" src="./images/img-default.jpg">
-         <!-- <img id=imgstream src="http://10.0.20.220:8080/?action=stream" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';"> -->
+        <!--   <img class="stream" src="./images/img-default.jpg"> -->
+          <img id=imgstream src="http://10.0.20.220:8080/?action=stream" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';">
 
-         <br /> <br /> <br /> <br /> <br /> <br />
-
+         <!--<br /> <br /> <br /> <br /> <br /> <br /> -->
+            <!--
              <textarea id="textresponse" name="textresponse" cols="45" rows="8" maxlength="65525" required="required"></textarea>
-
+            -->
          </div>
 
      </div>
-     <br>
+
 
      <script>
          var runBtn = document.getElementById('runBtn');
-
          runBtn.addEventListener('click', function(){
              document.getElementById('imgstream').src = "http://10.0.20.220:8080/?action=stream&?random="+new Date().getTime();
          });
 
-         var simuBtn = document.getElementById('simuBtn');
-         simuBtn.addEventListener('click', function () {
-             //myCodeMirror.save();
+         var ioBtn = document.getElementById('ioBtn');
+         ioBtn.addEventListener('click', function () {
              //alert('Funcionalidad en construcción');
-             //console.log("contenido ide:")
-             //console.log(myCodeMirror.getValue()); //imprime modificado
-             //myCodeMirror.setValue(myCodeMirror.getValue());
-           //  console.log("texto inicializacion ide:") /  console.log(myTextArea.textContent); //imprime inicializacion
+             window.open('http://localhost:3000/ventanaIO','popUpWindow','height=500,width=650,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+
+
 
              // ********** Prueba de respuestas del server ***********
-             $('#textresponse').val('aca debo mostrar respuestas del server');
+           //  $('#textresponse').val('aca debo mostrar respuestas del server');
          });
 
          var myTextArea = document.getElementById('editor');
