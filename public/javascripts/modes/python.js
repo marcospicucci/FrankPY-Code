@@ -34,7 +34,7 @@
                         "Ellipsis", "__debug__", "izquierda", "derecha", "atras", "adelante",
 						"cuantocolor", "buscarcolor", "detectar_objetos", "init", "esperar",
 						"nombre", "elegir_nombre", "luz_der_off", "luz_der_on", "luz_izq_on",
-						"luz_izq_off"];
+						"luz_izq_off", "foto", "verfoto", "bipbip", "parpadear", "calibrar_color"];
   CodeMirror.registerHelper("hintWords", "python", commonKeywords.concat(commonBuiltins));
 
   function top(state) {
