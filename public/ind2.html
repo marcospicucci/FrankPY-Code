@@ -50,7 +50,6 @@
 </body>
 
 
-
 <div class="row">
     <div class="column" style="max-width: 540px; margin: 20px">
         <p><b> Escribí tu código aquí:  </b></p>
@@ -60,25 +59,12 @@
             <button id="ioBtn" type="button" style="margin-top: 10px; background-color: #e2fade;border:1px solid black;">Ver ventana Entrada/Salida</button>
             <button id="simuBtn" type="button" style="margin-top: 10px; background-color: #ffebdb;border:1px solid black;">Ejecutar en el simulador</button>
         </form>
-
-       <!-- <form method="post" action="/"> <b> Área de comunicación (E/S)</b>
-            <input type="text" id="textopost" name="valorIO" value=""><br />
-            <input type="submit" value="enviar"/>
-        </form>
-       -->
     </div>
-
     <div class="column">
         <!--   <img class="stream" src="./images/img-default.jpg"> -->
           <img id=imgstream src="http://10.0.20.220:8080/?action=stream" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';">
-
-         <!--<br /> <br /> <br /> <br /> <br /> <br /> -->
-            <!--
-             <textarea id="textresponse" name="textresponse" cols="45" rows="8" maxlength="65525" required="required"></textarea>
-            -->
-         </div>
-
-     </div>
+    </div>
+</div>
 
 
      <script>
@@ -89,26 +75,19 @@
 
          var ioBtn = document.getElementById('ioBtn');
          ioBtn.addEventListener('click', function () {
-             //alert('Funcionalidad en construcción');
+
              window.open('http://localhost:3000/ventanaIO','popUpWindow','height=500,width=650,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
-
-
-
-             // ********** Prueba de respuestas del server ***********
-           //  $('#textresponse').val('aca debo mostrar respuestas del server');
          });
+        // var simubtn..(a implementar)
 
-         var myTextArea = document.getElementById('editor');
+         var areaTexto = document.getElementById('editor');
 
-         //se usaria solo para inicializar el editor con algún texto
-         var codeToExecute = "a = 2 + 3\n" +
-             "print a\n" +
-             "print a * 4\n" +
-             "print \"ingrese un numero del 1 al 9\"\n" +
-             "# num = input()";
-         myTextArea.textContent = codeToExecute;
-         //propiedad estática!! ...
-         var myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+         //se usa solo para inicializar el editor con algún texto
+         var codigoInicial = "# from robofai220 import*\n" +
+             "# init() \n" +
+             "p = 259";
+         areaTexto.textContent = codigoInicial;
+         var editor = CodeMirror.fromTextArea(areaTexto, {
              mode: "python",
              theme: "material",
              lineNumbers: true
