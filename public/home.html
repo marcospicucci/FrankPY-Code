@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- head -->
+<head>
+    <meta charset="utf-8">
+    <title>Prototipo-Plataforma de Programación</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="./stylesheets/codemirror.css">
+    <link rel="stylesheet" href="./stylesheets/material.css">
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/main.css" />
+</head>
+
+<!-- body -->
+<body class="is-preload">
+
+<!-- header -->
+<header id="header">
+    <a class="logo" href="home.html">Entorno para la programación de robots Frankestito-Compatibles</a>
+    <nav>
+        <a href="#menu">Menu</a>
+    </nav>
+</header>
+
+<!-- Nav -->
+<nav id="menu">
+    <ul class="links">
+        <li><a href="home.html">Home</a></li>
+    </ul>
+</nav>
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>Prototipo para la Programación Textual</h1>
+</div>
+
+<!-- Scripts -->
+<script src="./javascripts/codemirror.js"></script>
+<script src="./javascripts/modes/python.js"></script>
+
+<script src="./javascripts/jquery.min.js"></script> <!-- agregado por plantilla -->
+<script src="./javascripts/browser.min.js"></script>
+<script src="./javascripts/breakpoints.min.js"></script>
+<script src="./javascripts/util.js"></script>
+<script src="./javascripts/main-template.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+</body>
+
+
+<div class="row">
+    <div class="column" style="max-width: 540px; margin: 20px">
+        <p><b> Escribí tu código aquí:  </b></p>
+        <form method="post" action="/procesar" target="_self">
+            <textarea id="editor" name="codigo"></textarea>
+            <button id="runBtn" type="submit" style="margin-top: 10px; background-color: #ffebdb; border:1px solid black;">Ejecutar en el robot</button>
+            <button id="ioBtn" type="button" style="margin-top: 10px; background-color: #e2fade;border:1px solid black;">Ver ventana Entrada/Salida</button>
+            <button id="simuBtn" type="button" style="margin-top: 10px; background-color: #ffebdb;border:1px solid black;">Ejecutar en el simulador</button>
+        </form>
+    </div>
+    <div class="column">
+        <!--   <img class="stream" src="./images/img-default.jpg"> -->
+          <img id=imgstream src="http://10.0.20.220:8080/?action=stream" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';">
+    </div>
+</div>
+
+     <script>
+         let runBtn = document.getElementById('runBtn');
+         runBtn.addEventListener('click', function(){
+             document.getElementById('imgstream').src = "http://10.0.20.220:8080/?action=stream&?random="+new Date().getTime();
+         });
+
+         let ioBtn = document.getElementById('ioBtn');
+         ioBtn.addEventListener('click', function () {
+
+             window.open('http://localhost:3000/ventanaIO','popUpWindow','height=240,width=600,left=600,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+         });
+         // var simubtn..(a implementar)
+
+         let areaTexto = document.getElementById('editor');
+
+         //se usa solo para inicializar el editor con algún texto
+         let codigoInicial = "# from robofai220 import*\n" +
+             "# init() \n" +
+             "p = 259";
+         areaTexto.textContent = codigoInicial;
+         let editor = CodeMirror.fromTextArea(areaTexto, {
+             mode: "python",
+             theme: "material",
+             lineNumbers: true
+         });
+     </script>
+
+</html>
