@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>Ventana de Entrada y Salida de datos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: 0.5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #mensajes { list-style-type: none; margin: 0; padding: 0; }
+        #mensajes li { padding: 5px 10px; }
+        #mensajes li:nth-child(odd) { background: #eee; }
+        #mensajes { margin-bottom: 40px }
+    </style>
+</head>
+<body>
+<ul id="mensajes"></ul>
+<form action="">
+    <input id="m" autocomplete="off" /><button>Enviar</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./javascripts/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<script>
+    $(function () {
+        var socket = io();
+        $('form').submit(function(e) {
+            e.preventDefault(); // previene recarga de la pagina
+            socket.emit('valorIO', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        socket.on('mensaje', function(msj){
+            $('#mensajes').append($('<li>').text(msj));
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    });
+</script>
+
+</body>
+</html>
